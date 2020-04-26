@@ -37,10 +37,10 @@ registerDoParallel(cores = detectCores() - 1)
 
 
 dataMat <- rbind(
-  read.csv("conteoPosOtt14Pos.csv", header = T),
-  read.csv("conteoNegOtt14pos.csv", header = T))
+  read.csv("conteoPosHotel.csv", header = T),
+  read.csv("conteoNegHotel.csv", header = T))
 
-wordMat <- read.csv("positiveTOtt14PaperWords.csv", header = T)
+wordMat <- read.csv("HotelPaperWords.csv", header = T)
 labels <- 1 - wordMat[,ncol(wordMat)]
 wordMat <- wordMat[,-ncol(wordMat)]
 
@@ -204,7 +204,7 @@ plot.roc(roc.rf, pred.rf, col=rainbow(4)[3], add = TRUE)
 plot.roc(roc.nb, pred.nb, col=rainbow(4)[4], add = TRUE)
 legend("bottomright", legend=c("Ridge Regression", "SVM", "Random Forests", "Naive Bayes"), col=rainbow(4), lwd=2, cex=1.5)
 
-dt.comp <- data.table(name = c("RLR","SVM","Random Forests", "Naive Bayer"))
+dt.comp <- data.table(name = c("RLR","SVM","Random Forests", "Naive Bayes"))
 dt.comp$accuracy <- c(confMat.lasso$overall[1],
                       confMat.svm$overall[1],
                       confMat.rf$overall[1],

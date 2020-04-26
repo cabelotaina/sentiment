@@ -1,11 +1,14 @@
+# -*- coding: utf-8 -*-
 import itertools
 import nltk
 import numpy
 import treetaggerwrapper
 import nltk.classify
 import csv
+
 import unicodedata
 
+import matplotlib
 
 class classify:
 
@@ -32,7 +35,7 @@ class classify:
     """Stores every word and bigram in the specified file """
     def _getWords(self,list_cases):
         words= []
-        lugares = self._readPlaces("../scopus/tabooWords.es")
+        lugares = self._readPlaces("./scopus/tabooWords.es")
         conteoWords=[]
         colNames = ["Words", "Stops","CC","CD","DT","EX","FW","IN","JJ","JJR","JJS","LS","MD","NN","NNS","NP","NPS","PDT","POS","PP","PP$","RB","RBR","RBS","RP","SYM","TO","UH","VB","VBD","VBG","VBN","VBP","VBZ","WDT","WP","WP$","WRB"]
 
@@ -49,8 +52,7 @@ class classify:
             words.append(sentence_words)
             conteoWords.append(conteo)
 
-        return wo:q
-rds,conteoWords
+        return words,conteoWords
 
     """ Does stopwords lematization and tokenize"""
     def _doNLP(self,sentence,language,lugares):
@@ -101,7 +103,7 @@ rds,conteoWords
 
     """ Transform a sentence into features list to train /classify"""
     def _getFeatures(self,sentence,best_features=None,sentiment='pos'):
-        lugares = self._readPlaces("../scopus/tabooWords.es")
+        lugares = self._readPlaces("./scopus/tabooWords.es")
         if(type(sentence) is str):
             sentence_words, conteos=self._doNLP(sentence,'spanish',lugares)
         elif(type(sentence) is list):
@@ -158,6 +160,7 @@ rds,conteoWords
     """ Train de clasiffier using the specified files """
     def train(self, positive_file, negative_file):
 
+        print("initial test")
         #obtain a list of positive cases
         pos_cases=self._readCsv(positive_file)
         #obtain a list of negative cases
@@ -179,8 +182,10 @@ rds,conteoWords
 
 
 classifierLara = classify()
-#classifierLara.train("../corpus/denunciasVerdaderasNoviembre2016.csv","../corpus/denunciasFalsasNoviembre2016.csv")
-#classifierLara.train("../corpus/denunciasVerdaderasMayo2017.csv","../corpus/denunciasFalsasMayo2017.csv")
-classifierLara.train("../corpus/negativeTruthfulOtt14.csv","../corpus/negativeDeceptiveOtt14.csv")
-#classifierLara.train("../corpus/hotel_true.csv","../corpus/hotel_false.csv")
-#classifierLara.train("../corpus/truthfulOtt2011.csv","../corpus/deceptiveOtt2011.csv")
+classifierLara.train("/Users/cabelotaina/apps/web-mining/parte-3-proyecto-3/src/corpus/Abortion.True.csv", "/Users/cabelotaina/apps/web-mining/parte-3-proyecto-3/src/corpus/Abortion.False.csv")
+# classifierLara.train("/Users/cabelotaina/apps/web-mining/parte-3-proyecto-3/src/corpus/denunciasVerdaderasNoviembre2016.csv","/Users/cabelotaina/apps/web-mining/parte-3-proyecto-3/src/corpus/denunciasFalsasNoviembre2016.csv")
+#classifierLara.train("/Users/cabelotaina/apps/web-mining/parte-3-proyecto-3/src/corpus/denunciasVerdaderasMayo2017.csv","/Users/cabelotaina/apps/web-mining/parte-3-proyecto-3/src/corpus/denunciasFalsasMayo2017.csv")
+# classifierLara.train("/Users/cabelotaina/apps/web-mining/parte-3-proyecto-3/src/corpus/negativeTruthfulOtt14.csv","/Users/cabelotaina/apps/web-mining/parte-3-proyecto-3/src/corpus/negativeDeceptiveOtt14.csv")
+# muy lento 
+# classifierLara.train("/Users/cabelotaina/apps/web-mining/parte-3-proyecto-3/src/corpus/hotel_true.csv","/Users/cabelotaina/apps/web-mining/parte-3-proyecto-3/src/corpus/hotel_false.csv")
+#classifierLara.train("/Users/cabelotaina/apps/web-mining/parte-3-proyecto-3/src/corpus/truthfulOtt2011.csv","/Users/cabelotaina/apps/web-mining/parte-3-proyecto-3/src/corpus/deceptiveOtt2011.csv")

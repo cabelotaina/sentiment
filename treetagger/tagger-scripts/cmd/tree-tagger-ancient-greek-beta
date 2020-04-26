@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Set these paths appropriately
+
+BIN="/Users/cabelotaina/apps/web-mining/parte-3-proyecto-3/src/tagger-scripts/bin"
+CMD="/Users/cabelotaina/apps/web-mining/parte-3-proyecto-3/src/tagger-scripts/cmd"
+LIB="/Users/cabelotaina/apps/web-mining/parte-3-proyecto-3/src/tagger-scripts/lib"
+
+OPTIONS="-token -lemma -sgml"
+
+TOKENIZER=${CMD}/utf8-tokenize.perl
+MWL=${CMD}/mwl-lookup.perl
+TAGGER=${BIN}/tree-tagger
+PARFILE=${LIB}/ancient-greek-beta.par
+
+$TOKENIZER $* |
+# tagging
+$TAGGER $OPTIONS $PARFILE
+
